@@ -4,6 +4,7 @@ namespace Midnight\Settings\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
+use Midnight\Settings\Entity\Setting;
 
 class SettingRepository extends EntityRepository
 {
@@ -21,14 +22,22 @@ class SettingRepository extends EntityRepository
 
     public function set($namespace, $key, $value)
     {
-        $this->getEntityManager()->createQueryBuilder()
-            ->update($this->getEntityName(), 's')
-            ->set('s.value', $value)
-            ->where('s.namespace = :namespace')
-            ->andWhere('s.key = :key')
-            ->setParameters(['namespace' => $namespace, 'key' => $key])
-            ->getQuery()
-            ->execute();
+        $exists = $this->findOneBy(['namespace' => $namespace, 'key' => $key]);
+        if ($exists) {
+            $qb = $this->getEntityManager()->createQueryBuilder();
+            $qb->update($this->getEntityName(), 's')
+                ->set('s.value', $qb->expr()->literal($value))
+                ->where('s.namespace = :namespace')
+                ->andWhere('s.key = :key')
+                ->setParameters(['namespace' => $namespace, 'key' => $key])
+                ->getQuery()
+                ->execute();
+        } else {
+            $setting = new Setting($namespace, $key, $value);
+            $em = $this->getEntityManager();
+            $em->persist($setting);
+            $em->flush();
+        }
     }
 
     public function get($namespace, $key)

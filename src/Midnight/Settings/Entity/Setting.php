@@ -39,6 +39,13 @@ class Setting
      */
     private $value;
 
+    function __construct($namespace, $key, $value = null)
+    {
+        $this->key = $key;
+        $this->namespace = $namespace;
+        $this->value = $value;
+    }
+
     /**
      * @return string
      */
