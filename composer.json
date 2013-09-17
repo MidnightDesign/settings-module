@@ -1,0 +1,13 @@
+{
+    "name": "midnight/settings-module",
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=5.3.3",
+        "midnight/admin-module": "dev-master",
+    },
+    "autoload": {
+        "psr-0": {
+            "Midnight\\Settings": "src"
+        }
+    }
+}
