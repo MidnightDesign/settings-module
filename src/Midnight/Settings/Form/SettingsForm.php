@@ -29,7 +29,9 @@ class SettingsForm extends Form implements ServiceLocatorAwareInterface
         $config = $this->getConfig();
         foreach ($config as $namespace => $keys) {
             foreach ($keys as $key => $options) {
-                $this->add($this->createElement($options, $namespace, $key));
+                if (!isset($options['hidden']) || !$options['hidden']) {
+                    $this->add($this->createElement($options, $namespace, $key));
+                }
             }
         }
         $this->add(
@@ -69,8 +71,11 @@ class SettingsForm extends Form implements ServiceLocatorAwareInterface
         /** @var $setting_values Setting[] */
         $setting_values = $repository->findAll();
         foreach ($setting_values as $value) {
-            $element = $this->get($this->getElementName($value->getNamespace(), $value->getKey()));
-            $element->setValue($value->getValue());
+            $element_name = $this->getElementName($value->getNamespace(), $value->getKey());
+            if ($this->has($element_name)) {
+                $element = $this->get($element_name);
+                $element->setValue($value->getValue());
+            }
         }
     }
 
