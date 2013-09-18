@@ -42,6 +42,6 @@ class SettingRepository extends EntityRepository
 
     public function get($namespace, $key)
     {
-        return $this->findOneBy(['namespace' => $namespace, 'key' => $key]);
+        return $this->findOneBy(array('namespace' => $namespace, 'key' => $key));
     }
 }

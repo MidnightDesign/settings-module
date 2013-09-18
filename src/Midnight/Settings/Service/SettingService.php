@@ -24,8 +24,18 @@ class SettingService implements ServiceLocatorAwareInterface
     /**
      * @param string $namespace
      * @param string $key
+     * @param string $value
      */
-    public function getValue($namespace, $key)
+    public function set($namespace, $key, $value)
+    {
+        $this->getRepository()->set($namespace, $key, $value);
+    }
+
+    /**
+     * @param string $namespace
+     * @param string $key
+     */
+    private function getValue($namespace, $key)
     {
         $setting = $this->getSetting($namespace, $key);
         if (!$setting) {
