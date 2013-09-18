@@ -3,7 +3,8 @@
     "minimum-stability": "stable",
     "require": {
         "php": ">=5.3.3",
-        "midnight/admin-module": "dev-master"
+        "midnight/admin-module": "dev-master",
+        "zendframework/zend-mvc": "~2.2"
     },
     "autoload": {
         "psr-0": {

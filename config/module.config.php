@@ -55,4 +55,14 @@ return [
             __DIR__ . '/../view',
         ],
     ],
+    'service_manager' => array(
+        'invokables' => array(
+            'settings' => 'Midnight\Settings\Service\SettingService',
+        ),
+    ),
+    'controller_plugins' => array(
+        'invokables' => array(
+            'settings' => 'Midnight\Settings\Mvc\Controller\Plugin\SettingsPlugin',
+        ),
+    ),
 ];
