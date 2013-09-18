@@ -32,7 +32,7 @@ return [
                 'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
                 'cache' => 'array',
                 'paths' => [
-                    __DIR__ . '/../src/' . __NAMESPACE__ . '/Entity',
+                    __DIR__ . '/../src/' . str_replace('\\', DIRECTORY_SEPARATOR, __NAMESPACE__) . '/Entity',
                 ],
             ],
             'orm_default' => [
